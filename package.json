@@ -1,0 +1,52 @@
+{
+  "name": "@grace-studio/umbraco-translations",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.js",
+    "./cli": "./lib/cli.js"
+  },
+  "bin": {
+    "umbraco-translations": "./bin/index.js"
+  },
+  "files": [
+    "bin/**/*",
+    "lib/**/*"
+  ],
+  "scripts": {
+    "lint": "eslint",
+    "build": "tsc",
+    "dev": "npm run build && node ./bin/index.js --force",
+    "prepack": "npm run build",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grace-studio/umbraco-translations.git"
+  },
+  "bugs": {
+    "url": "https://github.com/grace-studio/umbraco-translations/issues"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5",
+    "commander": "12.1.0",
+    "dotenv": "16.4.5",
+    "inquirer": "12.1.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "9.0.7",
+    "@types/node": "22.9.0",
+    "eslint": "9.15.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-prettier": "5.2.1",
+    "prettier": "3.3.3",
+    "prettier-eslint": "16.3.0",
+    "typescript": "5.6.3"
+  },
+  "node": ">=18"
+}
