@@ -54,17 +54,31 @@ const extract = async (options: ExtractTranslationsOptions) => {
       const json = await getRawJson(options, token);
 
       const splittedLocales = LocaleFactory.split(json);
-      splittedLocales.default = splittedLocales[options.default];
+      // splittedLocales.default = splittedLocales[options.default];
 
       FileUtil.clearPath(options.out);
 
       Object.entries(splittedLocales).forEach(([locale, content]) => {
         FileUtil.writeFile(
-          options.out,
+          `${options.out}/locales`,
           `${locale}.json`,
           JSON.stringify(content, null, 2),
         );
       });
+
+      const indexTs: string[] = [];
+      Object.keys(splittedLocales).forEach((locale) => {
+        indexTs.push(
+          `export { default as ${locale} } from './locales/${locale}.json';`,
+        );
+
+        if (locale === options.default) {
+          indexTs.push(
+            `export { default as defaultLocale } from './locales/${locale}.json';`,
+          );
+        }
+      });
+      FileUtil.writeFile(options.out, 'index.ts', indexTs.join('\n'));
     } catch (erro) {}
   }
 };
